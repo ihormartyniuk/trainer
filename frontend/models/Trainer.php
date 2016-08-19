@@ -32,7 +32,7 @@ use yii\web\UploadedFile;
  * @property string $years_experience
  * @property string $previous_jobs
  * @property string $recommendations
-
+ * @property string $role
  */
 class Trainer extends \yii\db\ActiveRecord
 {

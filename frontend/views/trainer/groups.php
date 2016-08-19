@@ -17,6 +17,7 @@ if (count($ownGroups) != 0){ ?>
                             <th>Title</th>
                             <th>Date</th>
                             <th>Image</th>
+                            <th>Go</th>
                             <th>Delete</th>
                         </tr>
     <?php foreach ($ownGroups as $ownGroup){ ?>
@@ -24,6 +25,11 @@ if (count($ownGroups) != 0){ ?>
             <td><?= $ownGroup->title ?></td>
             <td><?= $ownGroup->registration_date ?></td>
             <td><?= $ownGroup->image ?></td>
+            <td>
+                <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>',  ['/groups/group', 'id' => $ownGroup->id], [
+                    'class'=>'btn btn-warning',
+                ]) ?>
+            </td>
             <td>
                 <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/groups/delete', 'id' => $ownGroup->id], [
                     'class'=>'btn btn-warning',

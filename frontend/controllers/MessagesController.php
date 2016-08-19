@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\BlogArticles;
-use frontend\models\BlogArticlesSearch;
+use frontend\models\Messages;
+use frontend\models\MessagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BlogArticlesController implements the CRUD actions for BlogArticles model.
+ * MessagesController implements the CRUD actions for Messages model.
  */
-class BlogArticlesController extends Controller
+class MessagesController extends Controller
 {
     /**
      * @inheritdoc
@@ -23,19 +23,19 @@ class BlogArticlesController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['GET'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all BlogArticles models.
+     * Lists all Messages models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BlogArticlesSearch();
+        $searchModel = new MessagesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class BlogArticlesController extends Controller
     }
 
     /**
-     * Displays a single BlogArticles model.
+     * Displays a single Messages model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class BlogArticlesController extends Controller
     }
 
     /**
-     * Creates a new BlogArticles model.
+     * Creates a new Messages model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new BlogArticles();
+        $model = new Messages();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,18 +74,8 @@ class BlogArticlesController extends Controller
         }
     }
 
-    public function actionArticle($id=null){
-        if ($id==null){$id=Yii::$app->user->identity->id;}
-        $model = new BlogArticles();
-        $articles = $model->find()->where(['author_id' => $id])->orderBy(['date' => SORT_DESC])->all();
-
-        return $this->render('articles',[
-            'articles'=>$articles,
-        ]);
-    }
-
     /**
-     * Updates an existing BlogArticles model.
+     * Updates an existing Messages model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -104,7 +94,7 @@ class BlogArticlesController extends Controller
     }
 
     /**
-     * Deletes an existing BlogArticles model.
+     * Deletes an existing Messages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,20 +102,20 @@ class BlogArticlesController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Yii::$app->session->setFlash('success', 'Your post is deleted!');
-        return $this->redirect(['/trainer/profile']);
+
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the BlogArticles model based on its primary key value.
+     * Finds the Messages model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return BlogArticles the loaded model
+     * @return Messages the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BlogArticles::findOne($id)) !== null) {
+        if (($model = Messages::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

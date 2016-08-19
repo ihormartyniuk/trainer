@@ -23,7 +23,7 @@ class GroupsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET'],
                 ],
             ],
         ];
@@ -102,8 +102,8 @@ class GroupsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Your own group is deleted!');
+        return $this->redirect(['/trainer/profile']);
     }
 
     /**

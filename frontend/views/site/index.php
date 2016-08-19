@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+use yii\bootstrap\Html;
 ?>
 <div class="site-index">
 
@@ -11,7 +12,8 @@ $this->title = 'My Yii Application';
 
         <p class="lead"><?php echo \skeeks\yii2\mobiledetect\MobileDetect::getInstance()->isMobile(); ?></p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><?= Html::a("Sign up like an athlete" ,['/site/athlete'], ['class'=>'btn btn-lg btn-success' ])?></p>
+        <p><?= Html::a("Sign up like a trainer" ,['/site/trainer'], ['class'=>'btn btn-lg btn-success' ])?></p>
     </div>
 
     <div class="body-content">

@@ -44,6 +44,7 @@ use yii\web\IdentityInterface;
  * @property string $years_experience
  * @property string $previous_jobs
  * @property string $recommendations
+ * @property string $role
  */
 
 class User extends ActiveRecord implements IdentityInterface
