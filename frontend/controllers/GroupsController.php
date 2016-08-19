@@ -2,20 +2,17 @@
 
 namespace frontend\controllers;
 
-use frontend\models\BlogArticles;
-use frontend\models\Groups;
 use Yii;
-use frontend\models\Trainer;
-use frontend\models\TrainerSearch;
+use frontend\models\Groups;
+use frontend\models\GroupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * TrainerController implements the CRUD actions for Trainer model.
+ * GroupsController implements the CRUD actions for Groups model.
  */
-class TrainerController extends Controller
+class GroupsController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +30,12 @@ class TrainerController extends Controller
     }
 
     /**
-     * Lists all Trainer models.
+     * Lists all Groups models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TrainerSearch();
+        $searchModel = new GroupsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class TrainerController extends Controller
     }
 
     /**
-     * Displays a single Trainer model.
+     * Displays a single Groups model.
      * @param integer $id
      * @return mixed
      */
@@ -60,13 +57,13 @@ class TrainerController extends Controller
     }
 
     /**
-     * Creates a new Trainer model.
+     * Creates a new Groups model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Trainer();
+        $model = new Groups();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,44 +74,8 @@ class TrainerController extends Controller
         }
     }
 
-    public function actionCart()
-    {
-        $model = $this->findModel(Yii::$app->user->id);
-        $avatar = $model->avatar;
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->avatar=UploadedFile::getInstance($model, 'avatar')){
-                $file_string = strval('images/trainer/profile/' . $model->avatar->baseName . Yii::$app->user->identity->id . '.' . $model->avatar->extension);
-                $model->avatar->saveAs($file_string);
-                $model->avatar = $file_string;
-            }else{$model->avatar=$avatar;}
-            $model->update();
-            Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-            return $this->redirect(['profile']);
-        } else {
-            return $this->render('cart', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionProfile(){
-        if (Yii::$app->user->identity->name == ''){return $this->redirect(['cart']);}
-        $model = new Trainer();
-        $blogModel = new BlogArticles();
-        $groupModel = new Groups();
-        $id=Yii::$app->user->identity->id;
-        $ownGroups = $groupModel->find()->where(['trainer_creator_id' =>$id])->all();
-        $articles = $blogModel->find()->where(['author_id' => $id])->orderBy(['date' => SORT_DESC])->all();
-        return $this->render('profile', [
-            'model' => $model,
-            'viewmodel' => $this->findModel($id),
-            'articles' => $articles,
-            'ownGroups' => $ownGroups,
-            'id'=>$id,
-        ]);
-    }
     /**
-     * Updates an existing Trainer model.
+     * Updates an existing Groups model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -133,7 +94,7 @@ class TrainerController extends Controller
     }
 
     /**
-     * Deletes an existing Trainer model.
+     * Deletes an existing Groups model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -146,15 +107,15 @@ class TrainerController extends Controller
     }
 
     /**
-     * Finds the Trainer model based on its primary key value.
+     * Finds the Groups model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Trainer the loaded model
+     * @return Groups the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Trainer::findOne($id)) !== null) {
+        if (($model = Groups::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

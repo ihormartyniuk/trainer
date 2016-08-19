@@ -13,13 +13,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="trainer-view">
 
     <p>
-        <?= Html::a('Update', ['cart'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['cart'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-
             'username',
             'email:email',
             'name',

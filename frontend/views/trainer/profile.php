@@ -55,6 +55,7 @@ use yii\bootstrap\Html;
                 <li><a href="#messages" data-toggle="tab">Messages</a></li>
                 <li><a href="#settings" data-toggle="tab">Settings</a></li>
                 <li><a href="#blog" data-toggle="tab">Blog</a></li>
+                <li><a href="#groups" data-toggle="tab">Groups</a></li>
             </ul>
 
             <div class="tab-content">
@@ -229,33 +230,15 @@ use yii\bootstrap\Html;
                 </div>
 
                 <div class="tab-pane" id="blog">
-                    <?= \yii\bootstrap\Html::a('Add artcile',['/blog-articles/create'], ['class'=>'btn btn-warning' ])?>
-                    <table  class="table table-hover">
-                        <tr >
-                            <th>Title</th>
-                            <th>Date</th>
-                            <th>Author</th>
-                            <th>Image</th>
-                            <th>Article</th>
-                            <th>Delete</th>
-                        </tr>
-                    <?php
-                    if (count($articles != null)){
-                    foreach ($articles as $article){ ?>
-                        <tr>
-                            <td><?= $article->title ?></td>
-                            <td><?= $article->author ?></td>
-                            <td><?= $article->image ?></td>
-                            <td><?= $article->date ?></td>
-                            <td><?= $article->content ?></td>
-                            <td>
-                                <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/blog-articles/delete', 'id' => $article->id], [
-                                    'class'=>'btn btn-warning',
-                                ]) ?>
-                            </td>
-                        </tr>
-                    <?php } }else{?>sdfdsfdsf <?php } ?>
-                    </table>
+                    <?= $this->render('trainerBlogArticles', [
+                        'articles' => $articles,
+                    ]) ?>
+                </div>
+
+                <div class="tab-pane" id="groups">
+                    <?= $this->render('groups', [
+                        'ownGroups' => $ownGroups,
+                    ]) ?>
                 </div>
 
 
